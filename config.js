@@ -1,7 +1,7 @@
 // change these two variables
-let channel = process.env.TWITCH_CHANNEL || "daopa";
+let channel = process.env.TWITCH_CHANNEL || "phbtp";
 let programName =
-  process.env.CONFIG_PROGRAM_NAME || "Visual";
+  process.env.CONFIG_PROGRAM_NAME || "fallguys";
   
 // List of commands to check for
 let commands = [
@@ -12,6 +12,7 @@ let commands = [
   "grab",
   "jump",
   "dive",
+  "esc"
 ];
 // matches strings like <command> <number_optional>
 let regexCommands = new RegExp("^(" + commands.join("|") + ")" + "( +)?([1-5]?)$", "i")
