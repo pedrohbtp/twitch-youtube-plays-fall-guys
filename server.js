@@ -12,12 +12,12 @@ const client = new tmi.client({
   channels: [config.channel],
 });
 
-const commandRegex =
-  config.regexCommands ||
-  new RegExp("^(" + config.commands.join("|") + ")$", "i");
+
+var commandRegex = config.regexCommands
 
 client.on("message", function (channel, tags, message, self) {
   let isCorrectChannel = `#${config.channel}` === channel;
+  console.log('Received message: ', message)
   let messageMatches = message.match(commandRegex);
 
   if (self) return;
