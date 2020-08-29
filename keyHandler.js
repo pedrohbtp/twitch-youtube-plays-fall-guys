@@ -4,10 +4,7 @@ let exec = require("child_process").exec,
   windowID = "unfilled",
   throttledCommands = config.throttledCommands,
   regexThrottle = new RegExp("^(" + throttledCommands.join("|") + ")$", "i"),
-  regexFilter = new RegExp(
-    "^(" + config.filteredCommands.join("|") + ")$",
-    "i"
-  );
+  regexFilter = new RegExp("^(" + config.filteredCommands.join("|") + ")$","i");
 
 let isWindows = process.platform === "win32";
 
@@ -27,26 +24,14 @@ for (let i = 0; i < throttledCommands.length; i++) {
   lastTime[throttledCommands[i]] = new Date().getTime();
 }
 
-let defaultKeyMap = config.keymap || {
-  up: "Up",
-  left: "Left",
-  down: "Down",
-  right: "Right",
-  a: "a",
-  b: "b",
-  x: "x",
-  y: "y",
-  start: "s",
-  select: "e",
-};
-
 function sendKey(command) {
   //if doesn't match the filtered words
   if (!command.match(regexFilter)) {
     let allowKey = true;
-    let key = defaultKeyMap[command] || command;
+    let key = config.keymap[command] || command;
     //throttle certain commands (not individually though)
     if (key.match(regexThrottle)) {
+      // TODO: get the hold time
       let newTime = new Date().getTime();
       if (newTime - lastTime[key] < config.timeToWait) {
         allowKey = false;
@@ -59,6 +44,7 @@ function sendKey(command) {
         //use python on windows
         // "VisualBoyAdvance"
         // "DeSmuME 0.9.10 x64"
+        console.log('issuing command: ', "python key.py" + "  " + config.programName + " " + key)
         exec("python key.py" + "  " + config.programName + " " + key);
       } else {
         //Send to preset window under non-windows systems
