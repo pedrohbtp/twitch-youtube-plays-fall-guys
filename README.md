@@ -19,9 +19,9 @@ Commands:
 * left: press button to go left
 * right: press button to go right
 * grab: press button to grab
-* nothing: releases all buttons
 * jump: press button to jump
 * dive: press the button to dive
+* esc: press the esc button
 
 
 
