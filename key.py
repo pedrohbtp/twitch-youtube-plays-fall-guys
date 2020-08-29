@@ -10,13 +10,14 @@ import time, sys
 keyDelay =0.1
 # https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 keymap = {
-    "up": win32con.VK_UP,
-    "down": win32con.VK_DOWN,
-    "left": win32con.VK_LEFT,
-    "right": win32con.VK_RIGHT,
+    "up": 0x57, #w
+    "down": 0x53, #s
+    "left": 0x41, #a
+    "right": 0x44, #d
     "grab": win32con.VK_LSHIFT,
     "jump": win32con.VK_SPACE,
-    "dive": win32con.VK_LCONTROL
+    "dive": win32con.VK_LCONTROL,
+    "esc": win32con.VK_ESCAPE
 }
 
 def press_for_seconds(button, hold_seconds):
