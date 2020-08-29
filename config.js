@@ -1,27 +1,31 @@
 // change these two variables
-let channel = process.env.TWITCH_CHANNEL || "alanzoka";
+let channel = process.env.TWITCH_CHANNEL || "daopa";
 let programName =
-  process.env.CONFIG_PROGRAM_NAME || "VisualBoyAdvance";
+  process.env.CONFIG_PROGRAM_NAME || "Visual";
   
 // List of commands to check for
 let commands = [
-  "left",
-  "right",
   "up",
   "down",
-  "start",
-  "select",
-  "a",
-  "b",
-  "democracy",
-  "anarchy",
-  "PogUU"
+  "left",
+  "right",
+  "grab",
+  "jump",
+  "dive",
 ];
+// matches strings like <command> <number_optional>
+let regexCommands = new RegExp("^(" + commands.join("|") + ")" + "( +)?([1-5]?)$", "i")
+// builds the keymap
+let keymap = {}
+for(key in commands){keymap[key]=key}
 
 let filteredCommands = [];
 let throttledCommands = [];
-
 module.exports = {
+  // regex commands used to parse
+  regexCommands,
+  // the keymap
+  keymap,
   // all commands to print out
   commands,
   // twitch channel to connect to
