@@ -7,7 +7,7 @@ import win32con
 import win32gui
 import time, sys
 
-keyDelay = 0.1
+keyDelay =0.1
 # https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 keymap = {
     "up": win32con.VK_UP,
@@ -19,10 +19,18 @@ keymap = {
     "dive": win32con.VK_LCONTROL
 }
 
+def press_for_seconds(button, hold_seconds):
+    ''' holds a button for the seconds specified
+    '''
+    start_time = time.time()
+    while time.time() - start_time < hold_seconds:
+        send_key(button)
+
 # this way has to keep window in focus
-def sendKey(button):
+def send_key(button):
     ''' Sends the button press to the screen in focus
     '''
+    # https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-keybd_event?redirectedfrom=MSDN
     win32api.keybd_event(keymap[button], 0, 0, 0)
     time.sleep(keyDelay)
     win32api.keybd_event(keymap[button], 0, win32con.KEYEVENTF_KEYUP, 0)
@@ -52,9 +60,28 @@ def enumHandler(hwnd, extra):
     if extra['window_name'].lower() in win32gui.GetWindowText(hwnd).lower():
         extra['return_list'].append({'screen_code': hwnd, 'screen_title': win32gui.GetWindowText(hwnd)})
 
+
 if __name__ == "__main__":
+
+    # tests for input validity
+    if len(sys.argv) < 3:
+        print('Invalid number of arguments!')
+        print('Syntax: python key.py <window_title> <action> <optional_hold_time_in_secons>')
+        exit(0)
+
     windowName = sys.argv[1]
     key = sys.argv[2]
+    try:
+        hold_time_seconds = float(sys.argv[3]) if len(sys.argv) >=4 else None
+    except ValueError as e:
+        # put = -1 to exit on the next if
+        hold_time_seconds = -1
+
+
+    # limits the hold time to 5 seconds
+    if hold_time_seconds!= None and(  hold_time_seconds > 5 or hold_time_seconds < 1):
+        print('hold time must be within 1 and 5')
+        exit(0)
 
     winId = SimpleWindowCheck(windowName)
     # winId = None
@@ -73,4 +100,7 @@ if __name__ == "__main__":
 
     win32gui.ShowWindow(winId, win32con.SW_SHOWNORMAL)
     win32gui.SetForegroundWindow(winId)
-    sendKey(key)
+    if hold_time_seconds == None:
+        send_key(key)
+    else:
+        press_for_seconds(key, hold_time_seconds)
