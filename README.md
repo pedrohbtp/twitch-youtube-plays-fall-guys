@@ -1,11 +1,38 @@
-# Twitch Plays Fall Guys
+# Twitch/Youtube Plays Fall Guys
+
+# installing the dependencies
+
+```bash
+npm install
+pip install -r requirements.txt
+```
+
+# Configuration
+
+Change ***config.json*** to point to the the Youtube/Twitch channel
+
+# Running the servers
+
+## Twitch
+
+```bash
+npm server_twitch.js
+```
+
+## Youtube
+
+```bash
+python server_yt.py
+```
+
+## Fall guys specific commands
 
 Gets the input from the chat and converts into commands used in Fall Guys
 
-Twitch chat format: 
-
+Twitch/Youtube chat format: 
+```
 <action> <optional_hold_time_in_secons>
-
+```
 ex: up 5
 
 will make walk forward for 5 seconds
@@ -25,6 +52,6 @@ Commands:
 
 
 
-# Based on the the repository
+## The twitch logic is based on the following repository
 
 https://github.com/hzoo/TwitchPlaysX
