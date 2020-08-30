@@ -1,19 +1,20 @@
 {
-  "name": "twitch-youtube-play-fall-guys",
+  "name": "twitch-youtube-plays-fall-guys",
   "private": true,
   "description": "Gets input from either twitch or youtube live chat and use it to play fall guys",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "dependencies": {
     "tmi.js": "1.5.0"
   },
   "scripts": {
-    "start": "node server_twitch.js",
+    "start_twitch": "node server_twitch.js",
+    "start_yt": "python server_yt.py",
     "lint": "prettier --write *.js",
     "test": "node -e \"require('child_process').exec('python key.py Notepad a');\""
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pedrohbtp/twitch-plays-fall-guys"
+    "url": "https://github.com/pedrohbtp/twitch-youtube-plays-fall-guys"
   },
   "devDependencies": {
     "prettier": "2.0.5"
