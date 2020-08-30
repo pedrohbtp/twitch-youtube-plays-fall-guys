@@ -1,1 +1,3 @@
 pywin32==223
+protobuf==3.13.0
+pytchat==0.1.4
