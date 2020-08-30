@@ -1,0 +1,15 @@
+{
+  "twitch_channel":"pedrobtorres",
+  "youtube_video_id": "EEIk7gwjgIM",
+  "program_name": "fallguys",
+  "key_mapping": {
+    "up": "w",
+    "down": "s",
+    "left": "a",
+    "right": "d",
+    "grab": "l_shift",
+    "jump": "space",
+    "dive": "l_control",
+    "esc": "esc"
+  }
+}
