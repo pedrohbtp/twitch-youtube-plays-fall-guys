@@ -16,10 +16,16 @@ Change ***config.json*** to point to the the Youtube/Twitch channel
 ## Twitch
 
 ```bash
-npm server_twitch.js
+npm run start_twitch
 ```
 
 ## Youtube
+
+```bash
+npm run start_yt
+```
+
+**or**
 
 ```bash
 python server_yt.py
