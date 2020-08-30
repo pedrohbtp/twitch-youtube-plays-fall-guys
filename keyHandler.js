@@ -24,11 +24,11 @@ for (let i = 0; i < throttledCommands.length; i++) {
   lastTime[throttledCommands[i]] = new Date().getTime();
 }
 
-function sendKey(command) {
+function sendKey(command, holdTime) {
   //if doesn't match the filtered words
   if (!command.match(regexFilter)) {
     let allowKey = true;
-    let key = config.keymap[command] || command;
+    let key = config.keymap[command];
     //throttle certain commands (not individually though)
     if (key.match(regexThrottle)) {
       // TODO: get the hold time
@@ -44,8 +44,8 @@ function sendKey(command) {
         //use python on windows
         // "VisualBoyAdvance"
         // "DeSmuME 0.9.10 x64"
-        console.log('issuing command: ', "python key.py" + "  " + config.programName + " " + key)
-        exec("python key.py" + "  " + config.programName + " " + key);
+        console.log('issuing command: ', "python key.py" + "  " + config.programName + " " + key + " " + holdTime)
+        exec("python key.py" + "  " + config.programName + " " + key + " " + holdTime);
       } else {
         //Send to preset window under non-windows systems
         exec(
