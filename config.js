@@ -1,24 +1,14 @@
+let generalConfig = require('./config.json')
 // change these two variables
-let channel = process.env.TWITCH_CHANNEL || "pedrobtorres";
-let programName =
-  process.env.CONFIG_PROGRAM_NAME || "fallguys";
+let channel = generalConfig['twitch_channel']
+let programName = generalConfig['program_name']
   
+// builds the keymap
+let keymap = generalConfig['key_mapping']
 // List of commands to check for
-let commands = [
-  "up",
-  "down",
-  "left",
-  "right",
-  "grab",
-  "jump",
-  "dive",
-  "esc"
-];
+let commands = Object.keys(generalConfig['key_mapping'])
 // matches strings like <command> <number_optional>
 let regexCommands = new RegExp("^(" + commands.join("|") + ")" + "( +)?([1-5]?)$", "i")
-// builds the keymap
-let keymap = {}
-for(key in commands){keymap[key]=key}
 
 let filteredCommands = [];
 let throttledCommands = [];
