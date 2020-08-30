@@ -1,7 +1,7 @@
 {
-  "name": "TwitchPlaysX",
+  "name": "twitch-youtube-play-fall-guys",
   "private": true,
-  "description": "Lets you use IRC to send inputs to a program and stream it, TwitchPlaysPokemon style",
+  "description": "Gets input from either twitch or youtube live chat and use it to play fall guys",
   "version": "0.0.1",
   "dependencies": {
     "tmi.js": "1.5.0"
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hzoo/TwitchPlaysX.git"
+    "url": "https://github.com/pedrohbtp/twitch-plays-fall-guys"
   },
   "devDependencies": {
     "prettier": "2.0.5"
