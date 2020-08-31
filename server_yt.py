@@ -19,12 +19,16 @@ compiled_re = re.compile("^(" + '|'.join(commands) + ")( +)?([1-5]?)$")
 
 def main():
     print('starting main')
-    livechat = LiveChat(video_id = conf["youtube_video_id"], callback = treat_messages)
+    livechat = LiveChat(video_id = conf["youtube_video_id"])#, callback = treat_messages)
     while livechat.is_alive():
-        #other background operation.
-        time.sleep(0.5)
-        # print('chat live')
-    livechat.terminate()
+        try:
+            treat_messages(livechat.get())
+            # print('chat live')
+        except KeyboardInterrupt:
+            livechat.terminate()
+            break
+        except Exception as e:
+            print('Exception: ', e)
 
 def execute_command(message):
     
@@ -32,13 +36,15 @@ def execute_command(message):
     if matched_string != None:
         # command matched
         command = matched_string.groups()[0]
-        if len(matched_string.groups()) == 3:
-                key.send_key_to_window(window_name=window_name, key=key_mapping[command], hold_time_seconds=matched_string.groups()[2])
-        elif len(matched_string.groups()) == 1:
+        print(matched_string.groups())
+        if matched_string.groups()[2] != '':
+                key.send_key_to_window(window_name=window_name, key=key_mapping[command], hold_time_seconds=float(matched_string.groups()[2]))
+        elif matched_string.groups()[0] != None:
                 key.send_key_to_window(window_name=window_name, key=key_mapping[command], hold_time_seconds=None)
 
 #callback function (automatically called)
 def treat_messages(chatdata):
+    print('all items: ', chatdata.items)
     for c in chatdata.items:
         print(f"{c.datetime} [{c.author.name}]- {c.message}")
         execute_command(c.message)
